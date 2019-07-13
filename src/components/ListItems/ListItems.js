@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import uuid from 'uuid'
 import { MyText, MyTextInput, SearchBox, MyButton } from './Styles'
 import Item from '../Item'
 
 const ListItems = () => {
-  const [locations, setLocations] = useState([])
+  const [locations, setLocations] = useState([{ id: 123, location: 'first item' }])
   const [term, setTerm] = useState('')
 
   const handleChangeText = value => {
@@ -11,11 +12,20 @@ const ListItems = () => {
   }
 
   const handleAddLocation = () => {
-    setLocations([...locations, term])
+    setLocations([...locations, { id: uuid(), location: term }])
   }
 
-  const listItems = locations.map(location => (
-    <Item key={location} location={location} />
+  const handleDeleteLocation = id => {
+    setLocations(locations.filter(location => location.id !== id))
+  }
+
+  const listItems = locations.map(({ location, id }) => (
+    <Item
+      key={id}
+      id={id}
+      location={location}
+      handleDeleteLocation={handleDeleteLocation}
+    />
   ))
 
   return (
@@ -28,6 +38,7 @@ const ListItems = () => {
           value={term}
         />
       </SearchBox>
+
       {listItems}
     </>
   )

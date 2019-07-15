@@ -5,13 +5,14 @@ export const ItemWrapper = styled.View`
   margin-top: 30;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 100%;
-  max-height: 30;
+  max-height: 50;
 `
 
 export const TextItem = styled.Text`
   color: #fff;
-  flex: 1;
+  flex: 0.8;
   justify-content: center;
   align-items: center;
   background-color: #222;

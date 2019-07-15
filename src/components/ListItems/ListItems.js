@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import uuid from 'uuid'
-import { MyText, MyTextInput, SearchBox, MyButton } from './Styles'
+import {
+  Container,
+  ListScrollViewWrapper,
+  MyText,
+  MyTextInput,
+  SearchBox,
+  MyButton
+} from './Styles'
 import Item from '../Item'
 
 const ListItems = () => {
@@ -12,7 +19,11 @@ const ListItems = () => {
   }
 
   const handleAddLocation = () => {
-    setLocations([...locations, { id: uuid(), location: term }])
+    setLocations(
+      [...locations, { id: uuid(), location: term }].filter(
+        ({ location }) => location
+      )
+    )
   }
 
   const handleDeleteLocation = id => {
@@ -29,7 +40,7 @@ const ListItems = () => {
   ))
 
   return (
-    <>
+    <Container>
       <SearchBox>
         <MyButton onPress={handleAddLocation} title="Add" />
         <MyTextInput
@@ -38,9 +49,8 @@ const ListItems = () => {
           value={term}
         />
       </SearchBox>
-
-      {listItems}
-    </>
+      <ListScrollViewWrapper>{listItems}</ListScrollViewWrapper>
+    </Container>
   )
 }
 
